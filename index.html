@@ -13,14 +13,34 @@ body {
   color: white;
   text-align: center;
   overflow-x: hidden;
-
-  /* Fondo estilo Minecraft pixel */
-  background: linear-gradient(#87CEEB 60%, #5c4033 60%);
 }
 
-/* pasto pixel */
-body::before {
-  content: "";
+/* 🌄 cielo */
+.sky {
+  position: fixed;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(#7ec0ee, #bde0fe);
+  z-index: -3;
+}
+
+/* ☁️ nubes pixel */
+.cloud {
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  background: white;
+  box-shadow: 20px 0 white, 40px 0 white, 10px -10px white;
+  animation: moveClouds 30s linear infinite;
+}
+
+@keyframes moveClouds {
+  from { transform: translateX(-100px); }
+  to { transform: translateX(110vw); }
+}
+
+/* 🌱 pasto pixel */
+.ground {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -32,16 +52,16 @@ body::before {
     #2e8b3c 20px,
     #2e8b3c 40px
   );
-  z-index: -1;
+  z-index: -2;
 }
 
-/* Dino pixel */
+/* 🦖 dino pixel */
 .dino {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   left: 20px;
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   background: #4caf50;
   box-shadow:
     20px 0 #4caf50,
@@ -49,41 +69,43 @@ body::before {
     0 20px #4caf50,
     20px 20px #66bb6a,
     40px 20px #4caf50,
-    20px 40px #4caf50,
-    40px 40px #4caf50;
+    20px 40px #4caf50;
 }
 
-/* burbuja */
+/* 💬 burbuja */
 .bubble {
   position: fixed;
-  bottom: 150px;
+  bottom: 120px;
   left: 20px;
   background: white;
   color: black;
   padding: 10px;
   border-radius: 10px;
   font-size: 10px;
-  max-width: 150px;
+  max-width: 160px;
 }
 
-/* UI */
+/* 🎮 tarjetas bonitas */
 .card {
-  margin: 20px auto;
+  margin: 30px auto;
   padding: 20px;
   max-width: 500px;
-  background: rgba(0,0,0,0.7);
-  border: 3px solid #fff;
-  border-radius: 10px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
+/* botones */
 button {
-  padding: 10px;
+  padding: 12px;
   margin: 10px;
   border: none;
-  background: #ff4081;
+  border-radius: 10px;
+  background: #ff4d6d;
   color: white;
   cursor: pointer;
   font-family: inherit;
+  transition: 0.3s;
 }
 
 button:hover {
@@ -94,15 +116,14 @@ button:hover {
   display: none;
 }
 
-/* corazones */
+/* ❤️ corazones */
 .heart {
   position: fixed;
-  color: red;
   font-size: 20px;
-  animation: float 4s linear infinite;
+  animation: subir 4s linear infinite;
 }
 
-@keyframes float {
+@keyframes subir {
   from { transform: translateY(100vh); }
   to { transform: translateY(-10vh); }
 }
@@ -111,8 +132,14 @@ button:hover {
 
 <body>
 
+<div class="sky"></div>
+<div class="ground"></div>
+
+<div class="cloud" style="top:50px;"></div>
+<div class="cloud" style="top:120px; animation-delay:10s;"></div>
+
 <div class="dino"></div>
-<div class="bubble" id="dinoText">¡Hola! Responde bien 🦖</div>
+<div class="bubble" id="dinoText">¡Hola! Contesta bien 🦖</div>
 
 <h1>🌿 FELIZ CUMPLEAÑOS MI AMORCITO 🌿</h1>
 
@@ -120,7 +147,7 @@ button:hover {
 <p>🎮 Nivel 1</p>
 <p>¿Qué eres para mí?</p>
 <button onclick="correcto1()">Mi todo 💕</button>
-<button onclick="incorrecto()">Un random 🤨</button>
+<button onclick="incorrecto()">Un npc 🤨</button>
 </div>
 
 <div id="nivel2" class="card hidden">
@@ -133,52 +160,62 @@ button:hover {
 <div id="nivel3" class="card hidden">
 <p>🌸 Nivel 3</p>
 <p>Presiona para desbloquear</p>
-<button onclick="final()">Abrir 🎁</button>
+<button onclick="finalJuego()">Abrir 🎁</button>
 </div>
 
 <div id="final" class="card hidden">
 <h2>🎉 FELIZ CUMPLEAÑOS 🎉</h2>
 <p>Has completado el juego 💘</p>
 
-<p>
-Hoy es un día demasiado especial porque naciste tú, y sinceramente no puedo dejar pasar la oportunidad de decirte lo importante que eres para mí.
-  FELIZ CUMPLEAÑOS MI AMORCITO ❤️ Espero que este día lo disfrutes muchísimo, que te rías, que la pases increíble y que sientas todo lo especial que eres, no solo hoy, sino siempre.
-  De verdad deseo que este nuevo año en tu vida venga lleno de cosas buenas, logros, momentos felices y sueños cumplidos. Quiero que sepas que para mí es una alegría enorme estar a tu lado.
-  Me haces sentir bien, me haces reír y haces que todo sea más bonito. Gracias por cada momento, por cada conversación y por simplemente ser tú. Espero poder seguir estando a tu lado en este cumpleaños y en muchos más, 
-  acompañándote, apoyándote y creando recuerdos juntos. Porque si algo tengo claro, es que quiero seguir compartiendo mi tiempo contigo. 
-  Te quiero muchísimo ❤️
+<div class="card">
+<p style="line-height:1.6; font-size:10px;">
+
+Hoy es un día demasiado especial porque naciste tú, y sinceramente no puedo dejar pasar la oportunidad de decirte lo importante que eres para mí.  
+FELIZ CUMPLEAÑOS MI AMORCITO ❤️  
+
+Espero que este día lo disfrutes muchísimo, que te rías, que la pases increíble y que sientas todo lo especial que eres, no solo hoy, sino siempre.  
+De verdad deseo que este nuevo año en tu vida venga lleno de cosas buenas, logros, momentos felices y sueños cumplidos.  
+
+Quiero que sepas que para mí es una alegría enorme estar a tu lado. Me haces sentir bien, me haces reír y haces que todo sea más bonito.  
+Gracias por cada momento, por cada conversación y por simplemente ser tú.  
+
+Espero poder seguir estando a tu lado en este cumpleaños y en muchos más, acompañándote, apoyándote y creando recuerdos juntos.  
+Porque si algo tengo claro, es que quiero seguir compartiendo mi tiempo contigo.  
+
+Te quiero muchísimo ❤️
+
 </p>
+</div>
 </div>
 
 <script>
 function correcto1(){
   nivel1.classList.add("hidden");
   nivel2.classList.remove("hidden");
-  dinoText.innerText="Bien hecho 🦖";
+  dinoText.innerText="Bien 🦖";
 }
 
 function correcto2(){
   nivel2.classList.add("hidden");
   nivel3.classList.remove("hidden");
-  dinoText.innerText="Casi terminas 😎";
+  dinoText.innerText="Ya casi 😎";
 }
 
 function incorrecto(){
-  dinoText.innerText="Intenta otra vez 😡";
+  dinoText.innerText="No 😡 intenta otra vez";
 }
 
-function final(){
+function finalJuego(){
   nivel3.classList.add("hidden");
   final.classList.remove("hidden");
-  dinoText.innerText="Feliz cumpleaños 💖";
+  dinoText.innerText="Feliz cumple 💖";
 
-  // lluvia de corazones
   setInterval(()=>{
-    let heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerText="❤️";
-    heart.style.left=Math.random()*100+"vw";
-    document.body.appendChild(heart);
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerText="❤️";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
   },300);
 }
 </script>
