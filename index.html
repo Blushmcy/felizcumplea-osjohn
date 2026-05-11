@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Feliz cumpleaños ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+
+  /* Fondo estilo Minecraft pixel */
+  background: linear-gradient(#87CEEB 60%, #5c4033 60%);
+}
+
+/* pasto pixel */
+body::before {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40%;
+  background: repeating-linear-gradient(
+    90deg,
+    #3cb043 0px,
+    #3cb043 20px,
+    #2e8b3c 20px,
+    #2e8b3c 40px
+  );
+  z-index: -1;
+}
+
+/* Dino pixel */
+.dino {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 120px;
+  height: 120px;
+  background: #4caf50;
+  box-shadow:
+    20px 0 #4caf50,
+    40px 0 #4caf50,
+    0 20px #4caf50,
+    20px 20px #66bb6a,
+    40px 20px #4caf50,
+    20px 40px #4caf50,
+    40px 40px #4caf50;
+}
+
+/* burbuja */
+.bubble {
+  position: fixed;
+  bottom: 150px;
+  left: 20px;
+  background: white;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 10px;
+  max-width: 150px;
+}
+
+/* UI */
+.card {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 500px;
+  background: rgba(0,0,0,0.7);
+  border: 3px solid #fff;
+  border-radius: 10px;
+}
+
+button {
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  background: #ff4081;
+  color: white;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.hidden {
+  display: none;
+}
+
+/* corazones */
+.heart {
+  position: fixed;
+  color: red;
+  font-size: 20px;
+  animation: float 4s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="dino"></div>
+<div class="bubble" id="dinoText">¡Hola! Responde bien 🦖</div>
+
+<h1>🌿 FELIZ CUMPLEAÑOS MI AMORCITO 🌿</h1>
+
+<div id="nivel1" class="card">
+<p>🎮 Nivel 1</p>
+<p>¿Qué eres para mí?</p>
+<button onclick="correcto1()">Mi todo 💕</button>
+<button onclick="incorrecto()">Un random 🤨</button>
+</div>
+
+<div id="nivel2" class="card hidden">
+<p>🍄 Nivel 2</p>
+<p>¿Quién es mi persona favorita?</p>
+<button onclick="correcto2()">Tú 💖</button>
+<button onclick="incorrecto()">Otro 😡</button>
+</div>
+
+<div id="nivel3" class="card hidden">
+<p>🌸 Nivel 3</p>
+<p>Presiona para desbloquear</p>
+<button onclick="final()">Abrir 🎁</button>
+</div>
+
+<div id="final" class="card hidden">
+<h2>🎉 FELIZ CUMPLEAÑOS 🎉</h2>
+<p>Has completado el juego 💘</p>
+
+<p>
+Hoy es un día demasiado especial porque naciste tú, y sinceramente no puedo dejar pasar la oportunidad de decirte lo importante que eres para mí.
+  FELIZ CUMPLEAÑOS MI AMORCITO ❤️ Espero que este día lo disfrutes muchísimo, que te rías, que la pases increíble y que sientas todo lo especial que eres, no solo hoy, sino siempre.
+  De verdad deseo que este nuevo año en tu vida venga lleno de cosas buenas, logros, momentos felices y sueños cumplidos. Quiero que sepas que para mí es una alegría enorme estar a tu lado.
+  Me haces sentir bien, me haces reír y haces que todo sea más bonito. Gracias por cada momento, por cada conversación y por simplemente ser tú. Espero poder seguir estando a tu lado en este cumpleaños y en muchos más, 
+  acompañándote, apoyándote y creando recuerdos juntos. Porque si algo tengo claro, es que quiero seguir compartiendo mi tiempo contigo. 
+  Te quiero muchísimo ❤️
+</p>
+</div>
+
+<script>
+function correcto1(){
+  nivel1.classList.add("hidden");
+  nivel2.classList.remove("hidden");
+  dinoText.innerText="Bien hecho 🦖";
+}
+
+function correcto2(){
+  nivel2.classList.add("hidden");
+  nivel3.classList.remove("hidden");
+  dinoText.innerText="Casi terminas 😎";
+}
+
+function incorrecto(){
+  dinoText.innerText="Intenta otra vez 😡";
+}
+
+function final(){
+  nivel3.classList.add("hidden");
+  final.classList.remove("hidden");
+  dinoText.innerText="Feliz cumpleaños 💖";
+
+  // lluvia de corazones
+  setInterval(()=>{
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerText="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    document.body.appendChild(heart);
+  },300);
+}
+</script>
+
+</body>
+</html>
